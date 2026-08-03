@@ -1,7 +1,7 @@
 package com.reza.statereducer
 
-//import com.reza.statereducer.updateQuery
-//import com.reza.statereducer.updateFilters
+import com.reza.statereducer.updateQuery
+import com.reza.statereducer.updateFilters
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,13 +17,13 @@ class SearchViewModel @Inject constructor() : ViewModel() {
 
     fun onQueryChanged(newQuery: String) {
         // USING KSP-GENERATED EXTENSION FUNCTION HERE!
-//        _uiState.value = _uiState.value.updateQuery { newQuery }
+        _uiState.value = _uiState.value.updateQuery { newQuery }
     }
 
     fun onToggleAvailability() {
         // USING KSP-GENERATED EXTENSION FUNCTION HERE!
-//        _uiState.value = _uiState.value.updateFilters { currentFilters ->
-//            currentFilters.copy(isAvailable = !currentFilters.isAvailable)
-//        }
+        _uiState.value = _uiState.value.updateFilters { currentFilters ->
+            currentFilters.copy(isAvailable = !currentFilters.isAvailable)
+        }
     }
 }

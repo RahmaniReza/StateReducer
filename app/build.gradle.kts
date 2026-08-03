@@ -34,6 +34,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    sourceSets.configureEach {
+        val buildDir = layout.buildDirectory.get().asFile
+        java.srcDir("$buildDir/generated/ksp/$name/kotlin")
+        java.srcDir("$buildDir/generated/ksp/$name/java")
+    }
 }
 
 dependencies {

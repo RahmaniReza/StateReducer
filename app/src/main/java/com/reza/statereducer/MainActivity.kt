@@ -49,7 +49,7 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
                 checked = state.filters.isAvailable,
                 onCheckedChange = { viewModel.onToggleAvailability() }
             )
-            Text(text = "Available Only", modifier = Modifier.padding(start = 8.dp))
+            Text(text = state.query, modifier = Modifier.padding(start = 8.dp))
         }
     }
 }

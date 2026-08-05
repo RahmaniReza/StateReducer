@@ -16,12 +16,10 @@ class SearchViewModel @Inject constructor() : ViewModel() {
     val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
 
     fun onQueryChanged(newQuery: String) {
-        // USING KSP-GENERATED EXTENSION FUNCTION HERE!
         _uiState.value = _uiState.value.updateQuery { newQuery }
     }
 
     fun onToggleAvailability() {
-        // USING KSP-GENERATED EXTENSION FUNCTION HERE!
         _uiState.value = _uiState.value.updateFilters { currentFilters ->
             currentFilters.copy(isAvailable = !currentFilters.isAvailable)
         }

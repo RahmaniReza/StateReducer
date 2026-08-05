@@ -6,6 +6,7 @@ import com.google.devtools.ksp.validate
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.writeTo
+import com.squareup.kotlinpoet.ksp.toTypeName
 
 class StateReducerProcessor(
     private val codeGenerator: CodeGenerator,
@@ -42,7 +43,7 @@ class StateReducerProcessor(
         val properties = classDeclaration.getAllProperties()
         for (property in properties) {
             val propertyName = property.simpleName.asString()
-            val propertyType = property.type.resolve().toClassName()
+            val propertyType = property.type.resolve().toTypeName()
 
             // Build the lambda parameter type: (PropertyType) -> PropertyType
             val lambdaParam = LambdaTypeName.get(
@@ -63,6 +64,6 @@ class StateReducerProcessor(
             fileBuilder.addFunction(extensionFunction)
         }
 
-        fileBuilder.build().writeTo(codeGenerator, aggregating = false)
+        fileBuilder.build().writeTo(codeGenerator = codeGenerator, aggregating = false)
     }
 }

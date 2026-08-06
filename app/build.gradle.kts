@@ -5,19 +5,6 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
-/*kotlin {
-    sourceSets.configureEach {
-        kotlin.srcDir("build/generated/ksp/$name/kotlin")
-    }
-}*/
-
-kotlin {
-    sourceSets.configureEach {
-        // Automatically registers KSP outputs for all variants (debug, release, etc.)
-        kotlin.srcDir(layout.buildDirectory.dir("generated/ksp/$name/kotlin"))
-    }
-}
-
 android {
     namespace = "com.reza.statereducer"
     compileSdk = 37
@@ -46,6 +33,14 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        getByName("main") {
+            kotlin.directories.add(
+                layout.buildDirectory.dir("generated/ksp/debug/kotlin").get().asFile.absolutePath
+            )
+        }
     }
 }
 

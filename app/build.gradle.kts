@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+
+    id("com.reza.statereducer")
 }
 
 android {
@@ -34,26 +36,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
-    sourceSets {
-        getByName("main") {
-            kotlin.directories.add(
-                layout.buildDirectory.dir("generated/ksp/debug/kotlin").get().asFile.absolutePath
-            )
-        }
-    }
 }
 
 dependencies {
-    ksp(project(":state-reducer-processor"))
-    implementation(project(":state-reducer-annotations"))
 
-    // 2. Hilt Dependency Injection (using KSP)
+    // Hilt Dependency Injection (using KSP)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
-    // 3. Compose Dependencies
+    // Compose Dependencies
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.ui)

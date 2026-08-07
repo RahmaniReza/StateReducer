@@ -1,4 +1,6 @@
 pluginManagement {
+    includeBuild("state-reducer-plugin")
+
     repositories {
         google {
             content {

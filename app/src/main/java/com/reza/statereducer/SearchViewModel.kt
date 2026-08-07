@@ -1,7 +1,5 @@
 package com.reza.statereducer
 
-import com.reza.statereducer.updateQuery
-import com.reza.statereducer.updateFilters
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

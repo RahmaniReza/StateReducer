@@ -3,8 +3,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-
-    id("com.reza.statereducer")
+    alias(libs.plugins.stateReducer)
 }
 
 android {
@@ -14,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.reza.statereducer"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 

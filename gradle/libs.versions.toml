@@ -47,5 +47,5 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "jetbrainsK
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "jetbrainsKotlinJvm" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+stateReducer = { id = "com.reza.statereducer", version = "1.0.0" }

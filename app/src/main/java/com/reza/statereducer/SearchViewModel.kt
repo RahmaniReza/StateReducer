@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
-import com.reza.statereducer.updateQuery
-import com.reza.statereducer.updateFilters
 
 @HiltViewModel
 class SearchViewModel @Inject constructor() : ViewModel() {

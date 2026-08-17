@@ -52,25 +52,51 @@ class StateReducerProcessor(
         val properties = classDeclaration.getAllProperties()
         for (property in properties) {
             val propertyName = property.simpleName.asString()
-            val propertyType = property.type.resolve().toTypeName()
-
-            // Build the lambda parameter type: (PropertyType) -> PropertyType
-            val lambdaParam = LambdaTypeName.get(
-                parameters = arrayOf(propertyType),
-                returnType = propertyType
-            )
-
+            val resolvedType = property.type.resolve()
+            val propertyTypeName = resolvedType.toTypeName()
             val capitalizedName = propertyName.replaceFirstChar { it.uppercase() }
 
-            // Construct the extension function: fun TargetState.updatePropertyName(transform: (Prop) -> Prop): TargetState
-            val extensionFunction = FunSpec.builder("update$capitalizedName")
+            // Check if the property is another data class (complex type)
+            val isDataClass = (resolvedType.declaration as? KSClassDeclaration)
+                ?.modifiers?.contains(Modifier.DATA) == true
+
+            // Direct Value
+            val directValueFunction = FunSpec.builder("update$capitalizedName")
                 .receiver(classType)
                 .returns(classType)
-                .addParameter("transform", lambdaParam)
-                .addStatement("return this.copy(%L = transform(this.%L))", propertyName, propertyName)
+                .addParameter("value", propertyTypeName)
+                .addStatement("return this.copy(%L = value)", propertyName)
                 .build()
 
-            fileBuilder.addFunction(extensionFunction)
+            // Transformer Lambda:
+            // - For nested Data Classes: (DSL Scope)
+            // - For Primitives/Other Types: (Standard Scope)
+            val transformFunction = if (isDataClass) {
+                val dslLambdaParam = LambdaTypeName.get(
+                    receiver = propertyTypeName,
+                    returnType = propertyTypeName
+                )
+                FunSpec.builder("update$capitalizedName")
+                    .receiver(classType)
+                    .returns(classType)
+                    .addParameter("block", dslLambdaParam)
+                    .addStatement("return this.copy(%L = this.%L.block())", propertyName, propertyName)
+                    .build()
+            } else {
+                val standardLambdaParam = LambdaTypeName.get(
+                    parameters = arrayOf(propertyTypeName),
+                    returnType = propertyTypeName
+                )
+                FunSpec.builder("update$capitalizedName")
+                    .receiver(classType)
+                    .returns(classType)
+                    .addParameter("transform", standardLambdaParam)
+                    .addStatement("return this.copy(%L = transform(this.%L))", propertyName, propertyName)
+                    .build()
+            }
+
+            fileBuilder.addFunction(directValueFunction)
+            fileBuilder.addFunction(transformFunction)
         }
 
         fileBuilder.build().writeTo(codeGenerator = codeGenerator, aggregating = false)

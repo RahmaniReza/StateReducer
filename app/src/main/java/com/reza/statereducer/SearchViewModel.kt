@@ -14,12 +14,12 @@ class SearchViewModel @Inject constructor() : ViewModel() {
     val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
 
     fun onQueryChanged(newQuery: String) {
-        _uiState.value = _uiState.value.updateQuery { newQuery }
+        _uiState.value = _uiState.value.updateQuery(newQuery)
     }
 
     fun onToggleAvailability() {
-        _uiState.value = _uiState.value.updateFilters { currentFilters ->
-            currentFilters.copy(isAvailable = !currentFilters.isAvailable)
+        _uiState.value = _uiState.value.updateFilters {
+            updateIsAvailable(!isAvailable)
         }
     }
 }

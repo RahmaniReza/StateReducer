@@ -48,4 +48,4 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "j
 android-library = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-stateReducer = { id = "com.reza.statereducer", version = "1.0.0" }
+stateReducer = { id = "io.github.RahmaniReza.statereducer", version = "1.0.0" }

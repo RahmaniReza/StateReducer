@@ -5,6 +5,9 @@ plugins {
     id("com.gradle.plugin-publish") version "1.2.1"
 }
 
+group = "io.github.RahmaniReza"
+version = "1.0.0"
+
 repositories {
     google()
     mavenCentral()
@@ -34,7 +37,7 @@ gradlePlugin {
 
     plugins {
         create("stateReducer") {
-            id = "com.reza.statereducer"
+            id = "io.github.RahmaniReza.statereducer"
             implementationClass = "com.reza.state_reducer_plugin.StateReducerPlugin"
             displayName = "State Reducer Plugin"
             description = "Auto-configures KSP and generated source sets for StateReducer"

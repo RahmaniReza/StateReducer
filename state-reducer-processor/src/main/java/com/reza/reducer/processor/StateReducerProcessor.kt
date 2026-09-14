@@ -3,6 +3,7 @@ package com.reza.reducer.processor
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
 import com.google.devtools.ksp.validate
+import com.reza.reducer.annotations.GenerateUpdaters
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.writeTo
@@ -14,7 +15,10 @@ class StateReducerProcessor(
 ) : SymbolProcessor {
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        val symbols = resolver.getSymbolsWithAnnotation("com.reza.reducer.annotations.GenerateUpdaters")
+        val annotationName = GenerateUpdaters::class.qualifiedName
+            ?: "com.reza.reducer.annotations.GenerateUpdaters"
+
+        val symbols = resolver.getSymbolsWithAnnotation(annotationName)
         val unableToProcess = symbols.filterNot { it.validate() }.toList()
 
         symbols

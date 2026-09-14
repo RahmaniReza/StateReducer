@@ -20,7 +20,7 @@ kotlin {
 }
 
 dependencies {
-    implementation(project(":state-reducer-annotations"))
+    implementation("io.github.RahmaniReza:state-reducer-annotations:1.0.0")
 
     implementation(libs.ksp.api)
     implementation(libs.kotlinpoet)
@@ -32,7 +32,7 @@ publishing {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
 
-            groupId = "com.github.RahmaniReza"
+            groupId = "io.github.RahmaniReza"
             artifactId = "state-reducer-processor"
             version = "1.0.0"
 
@@ -58,6 +58,17 @@ publishing {
                     developerConnection.set("scm:git:ssh://github.com/RahmaniReza/StateReducer.git")
                     url.set("https://github.com/RahmaniReza/StateReducer")
                 }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "SonatypeCentral"
+            url = uri("https://central.sonatype.com/api/v1/publisher/deployments/upload")
+            credentials {
+                username = project.findProperty("sonatypeUsername") as? String
+                password = project.findProperty("sonatypePassword") as? String
             }
         }
     }

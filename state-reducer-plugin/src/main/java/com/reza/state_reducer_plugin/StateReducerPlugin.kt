@@ -13,8 +13,8 @@ class StateReducerPlugin : Plugin<Project> {
                 dependencies.add("implementation", project(":state-reducer-annotations"))
                 dependencies.add("ksp", project(":state-reducer-processor"))
             } else {
-                dependencies.add("implementation", "com.reza:state-reducer-annotations:1.0.0")
-                dependencies.add("ksp", "com.reza:state-reducer-processor:1.0.0")
+                dependencies.add("implementation", "io.github.RahmaniReza:state-reducer-annotations:1.0.0")
+                dependencies.add("ksp", "io.github.RahmaniReza:state-reducer-processor:1.0.0")
             }
 
             plugins.withId("com.android.base") {

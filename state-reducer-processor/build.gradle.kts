@@ -25,7 +25,7 @@ dependencies {
 }
 
 mavenPublishing {
-    coordinates("io.github.RahmaniReza", "state-reducer-processor", "1.0.0")
+    coordinates("io.github.rahmanireza", "state-reducer-processor", "1.0.0")
 
     pom {
         name.set("StateReducer Processor")

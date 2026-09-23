@@ -25,10 +25,12 @@ kotlin {
 }
 
 dependencies {
-    // Provide AGP, Kotlin, and KSP APIs at compile time for your plugin implementation
+    // Keep compileOnly for AGP & Kotlin if consumers are required to apply them first
     compileOnly("com.android.tools.build:gradle:${libs.versions.agp.get()}")
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.jetbrainsKotlinJvm.get()}")
-    compileOnly("com.google.devtools.ksp:symbol-processing-gradle-plugin:${libs.versions.ksp.get()}")
+
+    // Use implementation so KSP is bundled on your plugin's classpath at runtime
+    implementation("com.google.devtools.ksp:symbol-processing-gradle-plugin:${libs.versions.ksp.get()}")
 }
 
 gradlePlugin {

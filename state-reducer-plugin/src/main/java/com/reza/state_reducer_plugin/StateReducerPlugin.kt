@@ -7,7 +7,9 @@ import org.gradle.api.Project
 class StateReducerPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply("com.google.devtools.ksp")
+            if (!pluginManager.hasPlugin("com.google.devtools.ksp")) {
+                pluginManager.apply("com.google.devtools.ksp")
+            }
 
             if (findProject(":state-reducer-annotations") != null) {
                 dependencies.add("implementation", project(":state-reducer-annotations"))
@@ -17,13 +19,13 @@ class StateReducerPlugin : Plugin<Project> {
                 dependencies.add("ksp", "io.github.rahmanireza:state-reducer-processor:1.0.0")
             }
 
-            plugins.withId("com.android.base") {
-                val androidExtension = extensions.findByType(CommonExtension::class.java)
-                androidExtension?.sourceSets?.all { sourceSet ->
-                    val path = "${layout.buildDirectory.get().asFile}/generated/ksp/${sourceSet.name}/kotlin"
-                    sourceSet.java.directories.add(path)
-                }
-            }
+//            plugins.withId("com.android.base") {
+//                val androidExtension = extensions.findByType(CommonExtension::class.java)
+//                androidExtension?.sourceSets?.all { sourceSet ->
+//                    val path = "${layout.buildDirectory.get().asFile}/generated/ksp/${sourceSet.name}/kotlin"
+//                    sourceSet.java.directories.add(path)
+//                }
+//            }
         }
     }
 }

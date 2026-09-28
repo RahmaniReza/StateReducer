@@ -20,13 +20,6 @@ class StateReducerPlugin : Plugin<Project> {
                 dependencies.add("ksp", "io.github.rahmanireza:state-reducer-processor:1.0.0")
             }
 
-            plugins.withId("com.android.base") {
-                val androidComponents = extensions.findByType(AndroidComponentsExtension::class.java)
-                androidComponents?.onVariants { variant ->
-                    val kspGeneratedDir = layout.buildDirectory.dir("generated/ksp/${variant.name}/kotlin")
-                    variant.sources.kotlin?.addStaticSourceDirectory(kspGeneratedDir.get().asFile.absolutePath)
-                }
-            }
 //            plugins.withId("com.android.base") {
 //                val androidExtension = extensions.findByType(CommonExtension::class.java)
 //                androidExtension?.sourceSets?.all { sourceSet ->

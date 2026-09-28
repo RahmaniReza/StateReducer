@@ -1,6 +1,7 @@
 package com.reza.state_reducer_plugin
 
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -20,12 +21,19 @@ class StateReducerPlugin : Plugin<Project> {
             }
 
             plugins.withId("com.android.base") {
-                val androidExtension = extensions.findByType(CommonExtension::class.java)
-                androidExtension?.sourceSets?.all { sourceSet ->
-                    val path = "${layout.buildDirectory.get().asFile}/generated/ksp/${sourceSet.name}/kotlin"
-                    sourceSet.java.directories.add(path)
+                val androidComponents = extensions.findByType(AndroidComponentsExtension::class.java)
+                androidComponents?.onVariants { variant ->
+                    val kspGeneratedDir = layout.buildDirectory.dir("generated/ksp/${variant.name}/kotlin")
+                    variant.sources.kotlin?.addStaticSourceDirectory(kspGeneratedDir.get().asFile.absolutePath)
                 }
             }
+//            plugins.withId("com.android.base") {
+//                val androidExtension = extensions.findByType(CommonExtension::class.java)
+//                androidExtension?.sourceSets?.all { sourceSet ->
+//                    val path = "${layout.buildDirectory.get().asFile}/generated/ksp/${sourceSet.name}/kotlin"
+//                    sourceSet.java.directories.add(path)
+//                }
+//            }
         }
     }
 }

@@ -15,5 +15,5 @@ Add the plugin to your module's `build.gradle.kts`:
 
 ```kotlin
 plugins {
-    id("io.github.RahmaniReza.statereducer") version "1.0.5"
+    id("io.github.RahmaniReza.statereducer") version "1.0.6"
 }

@@ -103,6 +103,17 @@ class StateReducerProcessor(
             fileBuilder.addFunction(transformFunction)
         }
 
-        fileBuilder.build().writeTo(codeGenerator = codeGenerator, aggregating = false)
+        // Pass Dependencies specifying originating file for KSP / AGP tracking
+        val containingFile = classDeclaration.containingFile
+        val dependencies = if (containingFile != null) {
+            Dependencies(aggregating = false, containingFile)
+        } else {
+            Dependencies(aggregating = false)
+        }
+
+        fileBuilder.build().writeTo(
+            codeGenerator = codeGenerator,
+            dependencies = dependencies
+        )
     }
 }

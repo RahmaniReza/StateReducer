@@ -16,7 +16,7 @@ kotlin {
 }
 
 mavenPublishing {
-    coordinates("io.github.rahmanireza", "state-reducer-annotations", "1.0.0")
+    coordinates("io.github.rahmanireza", "state-reducer-annotations", "1.0.1")
 
     pom {
         name.set("StateReducer Annotations")

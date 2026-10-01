@@ -14,7 +14,7 @@ class StateReducerPlugin : Plugin<Project> {
                 dependencies.add("implementation", project(":state-reducer-annotations"))
                 dependencies.add("ksp", project(":state-reducer-processor"))
             } else {
-                dependencies.add("implementation", "io.github.rahmanireza:state-reducer-annotations:1.0.0")
+                dependencies.add("implementation", "io.github.rahmanireza:state-reducer-annotations:1.0.1")
                 dependencies.add("ksp", "io.github.rahmanireza:state-reducer-processor:1.0.1")
             }
         }

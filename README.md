@@ -1,6 +1,7 @@
 # StateReducer
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.rahmanireza/state-reducer-annotations.svg?color=blue)](https://central.sonatype.com/artifact/io.github.rahmanireza/state-reducer-annotations)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.rahmanireza/state-reducer-annotations.svg?color=blue)](https://central.sonatype.com/artifact/io.github.rahmanireza/state-reducer-processor)
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/io.github.rahmanireza.statereducer?color=purple)](https://plugins.gradle.org/plugin/io.github.RahmaniReza.statereducer)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.3.0+-7F52FF.svg?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![KSP](https://img.shields.io/badge/KSP-Supported-green.svg)](https://github.com/google/ksp)

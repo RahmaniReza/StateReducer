@@ -9,6 +9,68 @@
 
 **StateReducer** is a lightweight Kotlin Symbol Processing (KSP) tool that generates compile-time state reducer functions and copy helpers for deeply nested UI/domain data classes. Say goodbye to verbose `.copy()` calls in MVI/Unidirectional Data Flow architectures.
 
+## 💡 Why StateReducer?
+
+Updating deeply nested data classes in Unidirectional Data Flow (UDF) or MVI architectures using standard Kotlin `.copy()` is verbose, error-prone, and hard to read. **StateReducer** automates this boilerplate with type-safe, auto-generated updater functions.
+
+### 🔴 Before (Standard Kotlin `.copy()`)
+
+```kotlin
+// Updating a deeply nested property requires nesting multiple copy calls
+val updatedState = currentState.copy(
+    user = currentState.user.copy(
+        profile = currentState.user.profile.copy(
+            settings = currentState.user.profile.settings.copy(
+                isDarkMode = true
+            )
+        )
+    )
+)
+```
+
+### 🟢 AFTER (With StateReducer)
+
+```kotlin
+// 1. Define your data class hierarchy with @GenerateUpdaters
+@GenerateUpdaters
+data class UiState(
+    val user: User = User(),
+    val isLoading: Boolean = false
+)
+
+@GenerateUpdaters
+data class User(
+    val profile: Profile = Profile()
+)
+
+@GenerateUpdaters
+data class Profile(
+    val settings: Settings = Settings()
+)
+
+data class Settings(
+    val isDarkMode: Boolean = false
+)
+
+class MainViewModel : ViewModel() {
+    
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
+
+    // 2. Updating nested state cleanly with StateReducer inside _uiState.update { }
+    fun toggleDarkMode(enabled: Boolean) {
+        _uiState.update { currentState ->
+            currentState.updateUser {
+                updateProfile {
+                    updateSettings {
+                        updateIsDarkMode(enabled)
+                    }
+                }
+            }
+        }
+    }
+}
+```
 ---
 
 ## ⚡ Key Features

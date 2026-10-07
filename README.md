@@ -16,7 +16,25 @@ Updating deeply nested data classes in Unidirectional Data Flow (UDF) or MVI arc
 ### 🔴 Before (Standard Kotlin `.copy()`)
 
 ```kotlin
-// Updating a deeply nested property requires nesting multiple copy calls
+// 1. Define your data class hierarchy
+data class UiState(
+    val user: User = User(),
+    val isLoading: Boolean = false
+)
+
+data class User(
+    val profile: Profile = Profile()
+)
+
+data class Profile(
+    val settings: Settings = Settings()
+)
+
+data class Settings(
+    val isDarkMode: Boolean = false
+)
+
+// 2. Updating a deeply nested property requires nesting multiple copy calls
 val updatedState = currentState.copy(
     user = currentState.user.copy(
         profile = currentState.user.profile.copy(
